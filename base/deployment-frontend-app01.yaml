@@ -78,6 +78,11 @@ spec:
               --NotebookApp.notebook_dir='/home/JupyterLab/codes' \
               --NotebookApp.token=''
         env:
+        - name: JUPYTERLAB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: kustomize-password
+              key: password
         - name: TZ
           value: Asia/Tokyo
         ports:
