@@ -33,28 +33,28 @@ patchesStrategicMerge:
     storageClassName: longhorn
     volumeMode: Filesystem
 - |-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: frontend-app01
-  labels:
-    app.kubernetes.io/name: jupyterlab
-spec:
-  template:
-    spec:
-      imagePullSecrets:
-        - name: docker-registry
-      containers:
-      - name: frontend-app01
-        command: ["/bin/sh", "-c"]
-        args:
-        - |
-          jupyter lab \
-              --ip=0.0.0.0 \
-              --allow-root \
-              --no-browser \
-              --NotebookApp.notebook_dir='/usr/src/app' \
-              --NotebookApp.token=''
-        volumeMounts:
-        - name: jupyterlab
-          mountPath: /usr/src/app
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: frontend-app01
+    labels:
+      app.kubernetes.io/name: jupyterlab
+  spec:
+    template:
+      spec:
+        imagePullSecrets:
+          - name: docker-registry
+        containers:
+        - name: frontend-app01
+          command: ["/bin/sh", "-c"]
+          args:
+          - |
+            jupyter lab \
+                --ip=0.0.0.0 \
+                --allow-root \
+                --no-browser \
+                --NotebookApp.notebook_dir='/home/jovyan' \
+                --NotebookApp.token="${JUPYTERLAB_TOKEN}"
+          volumeMounts:
+          - name: jupyterlab
+            mountPath: /usr/src/app

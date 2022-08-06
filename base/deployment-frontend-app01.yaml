@@ -75,8 +75,8 @@ spec:
               --ip=0.0.0.0 \
               --allow-root \
               --no-browser \
-              --NotebookApp.notebook_dir='/home/JupyterLab/codes' \
-              --NotebookApp.token=''
+              --NotebookApp.notebook_dir='/home/jovyan' \
+              --NotebookApp.token="${JUPYTERLAB_TOKEN}"
         env:
         - name: JUPYTERLAB_TOKEN
           valueFrom:
@@ -90,7 +90,7 @@ spec:
           containerPort: 8888
         volumeMounts:
         - name: jupyterlab
-          mountPath: /home/JupyterLab/codes
+          mountPath: /home/jovyan
       volumes:
       - name: jupyterlab
         persistentVolumeClaim:

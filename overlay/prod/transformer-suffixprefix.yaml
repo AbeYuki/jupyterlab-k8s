@@ -2,11 +2,13 @@ apiVersion: builtin
 kind: PrefixSuffixTransformer
 metadata:
   name: prefixsuffix-transformer
-prefix: prod-jupyterlab-
+prefix: jupyterlab-
 suffix: "-001"
 fieldSpecs:
   - path: metadata/name
   - path: spec/template/spec/containers/name
+    kind: Deployment
+  - path: spec/template/spec/containers/env/valueFrom/secretKeyRef/name
     kind: Deployment
   - path: spec/acme/privateKeySecretRef/name
     kind: ClusterIssuer
