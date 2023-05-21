@@ -61,6 +61,9 @@ spec:
       - name: frontend-app01
         image: frontend-app01
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
         resources:
           requests:
             cpu: "0.25"
@@ -68,15 +71,6 @@ spec:
           limits:
             cpu: "0.5"
             memory: 526Mi
-        command: ["/bin/sh", "-c"]
-        args:
-        - |
-          jupyter lab \
-              --ip=0.0.0.0 \
-              --allow-root \
-              --no-browser \
-              --NotebookApp.notebook_dir='/home/jovyan' \
-              --NotebookApp.token="${JUPYTERLAB_TOKEN}"
         env:
         - name: JUPYTERLAB_TOKEN
           valueFrom:
@@ -95,4 +89,3 @@ spec:
       - name: jupyterlab
         persistentVolumeClaim:
           claimName: frontend-app01
-    
